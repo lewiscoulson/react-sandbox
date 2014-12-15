@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mixins</title>
+	<script src="http://fb.me/react-0.8.0.js"></script>
+	<script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
+</head>
+<body>
+<script type="text/jsx">
+	/*** @jsx React.DOM */
+	var ReactMixins = {
+		componentWillMount: function() {
+			console.log('component will mount');
+		}
+	};
+
+	var APP = React.createClass({
+		mixins: [ReactMixins],
+		render: function() {
+			return ( 
+				<div>
+					<buttonComponent txt="this is a button"></buttonComponent>
+					<inputComponent txt="this is an input"></inputComponent>
+				</div>
+		  )
+		}
+	});
+	
+	var buttonComponent = React.createClass({
+		mixins: [ReactMixins],
+		render: function() {
+			return (
+				<button>{this.props.txt}</button>
+			)
+		}
+	
+	});
+
+	var inputComponent = React.createClass({
+	
+		render: function() {
+			return (
+				<input type="text" val={this.props.txt} />
+			)
+		}
+	
+	});
+
+	React.renderComponent(<APP />, document.body);
+</script>
+</body>
+</html> 

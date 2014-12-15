@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>First React Component</title>
+	<script src="http://fb.me/react-0.8.0.js"></script>
+	<script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
+</head>
+<body>
+<script type="text/jsx">
+	/*** @jsx React.DOM */
+	var APP = React.createClass({
+		render: function() {
+			return (
+				// this is invalid
+				// <h1>hello world!</h1>
+				// <strong>im strong</strong>
+
+				// can only return a single node
+				<div>
+					<h1>heallo world!</h1>
+					<strong>im strong</strong>
+				</div>
+			)
+		}
+	});
+
+	React.renderComponent(<APP />, document.body);
+</script>
+</body>
+</html>
