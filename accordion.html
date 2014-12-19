@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <title>React Accordion</title>
+    <script src="jquery.js"></script>
+    <script src="http://fb.me/react-0.8.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+      .accordion-item--active .accordion-body {
+        display: block;
+      }
+
+      .accordion-item--inactive .accordion-body {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+
+    <script type="text/jsx">
+      /** @jsx React.DOM */
+
+      var Accordion = React.createClass({
+        getInitialState: function() {
+          return {
+            data: [
+              {heading: 'heading 1', body: 'body 1'},
+              {heading: 'heading 2', body: 'body 2'},
+              {heading: 'heading 3', body: 'body 3'}
+            ]
+          }
+        },
+        toggleClass: function(event) {
+          $('.accordion-item').removeClass('accordion-item--active');
+          $('.accordion-item').addClass('accordion-item--inactive');
+
+          $(event.target).closest('.accordion-item').removeClass('accordion-item--inactive');
+          $(event.target).closest('.accordion-item').addClass('accordion-item--active');
+        },
+        render: function() {
+          return (
+            <div className="accordion" onClick={this.toggleClass}>
+              { this.state.data.map(function(accordion_item, i) {
+                  return <AccordionItem key={i} data={accordion_item} />
+              }) }
+            </div>
+          )
+        }
+      });
+
+      var AccordionItem = React.createClass({
+        render: function() {
+          return (
+            <div className="accordion-item accordion-item--inactive" id={this.props.key}>
+              <AccordionHead text={this.props.data.heading} />
+              <AccordionBody text={this.props.data.body} />
+            </div>
+          )
+        }
+      });
+
+      var AccordionHead = React.createClass({
+        render: function() {
+          return (
+            <div className="accordion-head">
+              {this.props.text}
+            </div>
+          )
+        }
+      });
+
+      var AccordionBody = React.createClass({
+        render: function() {
+          return (
+            <div className="accordion-body">
+              {this.props.text}
+            </div>
+          )
+        }
+      });
+
+      React.renderComponent(<Accordion />, document.body);
+    </script>
+  </body>
+</html>
