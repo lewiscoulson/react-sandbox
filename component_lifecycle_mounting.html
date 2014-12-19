@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>accessing child properties</title>
+    <script src="http://fb.me/react-0.8.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+  </head>
+  <body>
+    <button onClick="render()">Render</button>
+    <button onClick="unmount()">Unmount</button>
+
+    <div id="panel"></div>
+
+    <script type="text/jsx">
+      /** @jsx React.DOM */
+
+      var APP = React.createClass({
+        update: function() {
+          var newVal = this.props.val + 1;
+          this.setProps({val: newVal});
+        },
+        // runs once before render
+        componentWillMount: function() {
+          console.log('mounted');
+        },
+        render: function() {
+          return (
+            <div>
+              <button onClick={this.update}>{this.props.val}</button>
+            </div>
+          )
+        },
+        // runs once after render
+        componentDidMount: function() {
+          console.log('did mount');
+        },
+        // runs once after render
+        componentWillUnmount: function() {
+          console.log('will unmount');
+        }
+      });
+
+      window.render = function() {
+        React.renderComponent(<APP val={0} />, document.getElementById('panel'));
+      };
+
+      window.unmount = function() {
+        React.unmountComponentAtNode(document.getElementById('panel'));
+      };
+    </script>
+  </body>
+</html>
